@@ -26,6 +26,16 @@ func (p *pool) RepeatDraw(count int) (typList []uint32, contentList []interface{
 	return
 }
 
+func (p *pool) ProbList() (probList []float32, typList []uint32, contentList []interface{}) {
+	for _, elem := range p.list {
+		typList = append(typList, elem.typ)
+		contentList = append(contentList, elem.content)
+		probList = append(probList, float32(elem.weight)/float32(p.weightSum))
+	}
+
+	return
+}
+
 //func (p *pool) SingleDraw(count int)  (typList []uint32, contentList []interface{})
 
 func NewPool(list []Elem) (p *pool) {
