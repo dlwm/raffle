@@ -1,12 +1,12 @@
 package raffle
 
-type pool struct {
+type Pool struct {
 	list      []Elem
 	weightSum uint32
 	// TODO 后续做池累计等
 }
 
-func (p *pool) RepeatDraw(count int) (typList []uint32, contentList []interface{}) {
+func (p *Pool) RepeatDraw(count int) (typList []uint32, contentList []interface{}) {
 	if p.weightSum == 0 {
 		return
 	}
@@ -26,7 +26,7 @@ func (p *pool) RepeatDraw(count int) (typList []uint32, contentList []interface{
 	return
 }
 
-func (p *pool) ProbList() (probList []float32, typList []uint32, contentList []interface{}) {
+func (p *Pool) ProbList() (probList []float32, typList []uint32, contentList []interface{}) {
 	for _, elem := range p.list {
 		typList = append(typList, elem.typ)
 		contentList = append(contentList, elem.content)
@@ -36,10 +36,10 @@ func (p *pool) ProbList() (probList []float32, typList []uint32, contentList []i
 	return
 }
 
-//func (p *pool) SingleDraw(count int)  (typList []uint32, contentList []interface{})
+//func (p *Pool) SingleDraw(count int)  (typList []uint32, contentList []interface{})
 
-func NewPool(list []Elem) (p *pool) {
-	p = &pool{list: list}
+func NewPool(list []Elem) (p *Pool) {
+	p = &Pool{list: list}
 
 	for _, e := range list {
 		p.weightSum += e.weight
